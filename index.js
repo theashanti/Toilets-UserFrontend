@@ -4,6 +4,7 @@ Vue.createApp({
     data() {
         return {
             toilet: null,
+            distance: 0,
             error: null
         }
     },
@@ -15,7 +16,8 @@ Vue.createApp({
             while(true){
                 try {
                     const response = await axios.get(url)
-                    this.toilet = await response.data
+                    this.toilet = await response.data.myToilet
+                    this.distance = await response.data.myDouble
                 } catch (ex) {
                     this.error = ex.message
                 }
@@ -24,3 +26,7 @@ Vue.createApp({
         },
     }
 }).mount("#app")
+
+function sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
