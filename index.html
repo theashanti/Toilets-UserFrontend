@@ -26,6 +26,15 @@
             <h1>{{directionMessage}}</h1>
         </div>
 
+
+        <div>
+            <h1>{{weatherData.weather[0].main}}</h1>
+            <h1>{{weatherData.weather[0].description}}</h1>
+            <h2>{{weatherData.main.temp}}</h2>
+            <h2>{{weatherData.main.feels_like}}</h2>
+            <h2>{{weatherData.main.humidity}}</h2>
+        </div>
+
         <div v-if='error != null'>
             <h3 class="sel-error">{{error}}</h3>
         </div>

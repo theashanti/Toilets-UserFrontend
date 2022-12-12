@@ -1,4 +1,5 @@
 const baseUrl = "https://toiletswebapi20221202091437.azurewebsites.net/Users"
+const locationUrl = "https://toiletswebapi20221202091437.azurewebsites.net/Locations"
 
 Vue.createApp({
     data() {
@@ -7,13 +8,18 @@ Vue.createApp({
             distance: 0,
             direction: 0,
             directionMessage: null,
-            error: null
+            nearToiletError: null,
+            locationError: null,
+            callWeatherError: null,
+            location: null,
+            weatherData: null
         }
     },
     async created() {
         this.getNearestToilet(baseUrl)
         this.DirectionInPlainSpeak(this.direction)
-
+        this.GetLocation(locationUrl)
+        this.CallWeatherAPI()
     },
     methods: {
         async getNearestToilet(url) {
@@ -24,7 +30,18 @@ Vue.createApp({
                     this.distance = await response.data.myDouble
                     this.direction = await response.data.direction
                 } catch (ex) {
-                    this.error = ex.message
+                    this.nearToiletError = ex.message
+                }
+                await sleep(5000);
+            }
+        },
+        async GetLocation(url){
+            while (true) {
+                try {
+                    const response = await axios.get(url)
+                    this.location = await response.data
+                } catch (ex) {
+                    this.locationError = ex.message
                 }
                 await sleep(5000);
             }
@@ -60,8 +77,18 @@ Vue.createApp({
                 }
             await sleep(5000);
             }
-
         },
+        async CallWeatherAPI(){
+            while (true) {
+                try {
+                    const response = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat="+this.location.latitude+"&lon="+this.location.longitude+"&appid=127d39d8264cec2f8f757dcefb723d0f")
+                    this.weatherData = await response.data
+                } catch (ex) {
+                    this.callWeatherError = ex.message
+                }
+                await sleep(5000);
+            }
+        },            
     }
 }).mount("#app")
 
