@@ -12,7 +12,9 @@ Vue.createApp({
             locationError: null,
             callWeatherError: null,
             location: null,
-            weatherData: null
+            weatherData: null,
+            temp: 0,
+            tempFeels: 0
         }
     },
     async created() {
@@ -83,12 +85,14 @@ Vue.createApp({
                 try {
                     const response = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat="+this.location.latitude+"&lon="+this.location.longitude+"&appid=127d39d8264cec2f8f757dcefb723d0f")
                     this.weatherData = await response.data
+                    this.temp = (this.weatherData.main.temp - 272.15).toFixed(1)
+                    this.tempFeels = (this.weatherData.main.feels_like - 272.15).toFixed(1)
                 } catch (ex) {
                     this.callWeatherError = ex.message
                 }
                 await sleep(5000);
             }
-        },            
+        },         
     }
 }).mount("#app")
 
