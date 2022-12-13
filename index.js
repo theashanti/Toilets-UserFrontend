@@ -51,31 +51,31 @@ Vue.createApp({
         async DirectionInPlainSpeak(direction) {
             while (true) {
                 if (direction >= -22.5 && direction < 22.5) {
-                    this.directionMessage = 'Toilet is Eastward'
+                    this.directionMessage = 'Eastward'
                 }
                 else if (direction >= 22.5 && direction < 67.5) {
-                    this.directionMessage = 'Toilet is NorthEast'
+                    this.directionMessage = 'NorthEast'
                 }
                 else if (direction >= 67.5 && direction < 112.5) {
-                    this.directionMessage = 'Toilet is North'
+                    this.directionMessage = 'North'
                 }
                 else if (direction >= 112.5 && direction < 157.5) {
-                    this.directionMessage = 'Toilet is NorthWest'
+                    this.directionMessage = 'NorthWest'
                 }
                 else if (direction >= 157.5 && direction < 180) {
-                    this.directionMessage = 'Toilet is West'
+                    this.directionMessage = 'West'
                 }
                 else if (direction >= -180 && direction < -157.5) {
-                    this.directionMessage = 'Toilet is West'
+                    this.directionMessage = 'West'
                 }
                 else if (direction >= -157.5 && direction < -112.5) {
-                    this.directionMessage = 'Toilet is SouthWest'
+                    this.directionMessage = 'SouthWest'
                 }
                 else if (direction >= -112.5 && direction < -67.5) {
-                    this.directionMessage = 'Toilet is South'
+                    this.directionMessage = 'South'
                 }
                 else if (direction >= -67.5 && direction < -22.5) {
-                    this.directionMessage = 'Toilet is SouthEast'
+                    this.directionMessage = 'SouthEast'
                 }
             await sleep(5000);
             }
