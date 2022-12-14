@@ -24,6 +24,13 @@
 
         <div class="container mb-3 d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
+                <div class="progress" style="height: 10px;" v-html="loadHtml"> 
+                </div>
+            </div>
+        </div>
+
+        <div class="container mb-3 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h1 class="card-title">Nearest toilet</h1>
                     <p class="sel-address">{{toilet.address}}</p>
@@ -34,6 +41,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="container d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">

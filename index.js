@@ -14,7 +14,9 @@ Vue.createApp({
             location: null,
             weatherData: null,
             temp: 0,
-            tempFeels: 0
+            tempFeels: 0,
+            loadValue: 0,
+            loadHtml: null
         }
     },
     async created() {
@@ -22,6 +24,7 @@ Vue.createApp({
         this.DirectionInPlainSpeak(this.direction)
         this.GetLocation(locationUrl)
         this.CallWeatherAPI()
+        this.Progress()
     },
     methods: {
         async getNearestToilet(url) {
@@ -37,7 +40,7 @@ Vue.createApp({
                 await sleep(5000);
             }
         },
-        async GetLocation(url){
+        async GetLocation(url) {
             while (true) {
                 try {
                     const response = await axios.get(url)
@@ -77,13 +80,13 @@ Vue.createApp({
                 else if (direction >= -67.5 && direction < -22.5) {
                     this.directionMessage = 'SouthEast'
                 }
-            await sleep(5000);
+                await sleep(5000);
             }
         },
-        async CallWeatherAPI(){
+        async CallWeatherAPI() {
             while (true) {
                 try {
-                    const response = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat="+this.location.latitude+"&lon="+this.location.longitude+"&appid=127d39d8264cec2f8f757dcefb723d0f")
+                    const response = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat=" + this.location.latitude + "&lon=" + this.location.longitude + "&appid=127d39d8264cec2f8f757dcefb723d0f")
                     this.weatherData = await response.data
                     this.temp = (this.weatherData.main.temp - 272.15).toFixed(1)
                     this.tempFeels = (this.weatherData.main.feels_like - 272.15).toFixed(1)
@@ -92,7 +95,19 @@ Vue.createApp({
                 }
                 await sleep(5000);
             }
-        },         
+        },
+        async Progress() {
+            while (true) {
+                if (this.loadValue >= 100) {
+                    this.loadValue = 0
+                }
+
+                await sleep(1000)
+                this.loadValue += 20
+                this.loadHtml = '<div class="progress-bar bg-danger" role="progressbar" style="width: ' + this.loadValue + '%" aria-valuenow="' + this.loadValue + '" aria-valuemin="0" aria-valuemax="100"></div>'
+
+            }
+        }
     }
 }).mount("#app")
 
