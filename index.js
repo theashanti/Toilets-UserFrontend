@@ -21,10 +21,10 @@ Vue.createApp({
     },
     async created() {
         this.getNearestToilet(baseUrl)
+        this.Progress()
         this.DirectionInPlainSpeak(this.direction)
         this.GetLocation(locationUrl)
         this.CallWeatherAPI()
-        this.Progress()
     },
     methods: {
         async getNearestToilet(url) {
@@ -104,7 +104,7 @@ Vue.createApp({
 
                 await sleep(1000)
                 this.loadValue += 20
-                this.loadHtml = '<div class="progress-bar bg-danger" role="progressbar" style="width: ' + this.loadValue + '%" aria-valuenow="' + this.loadValue + '" aria-valuemin="0" aria-valuemax="100"></div>'
+                this.loadHtml = '<div class="progress-bar bg-secondary" role="progressbar" style="width: ' + this.loadValue + '%" aria-valuenow="' + this.loadValue + '" aria-valuemin="0" aria-valuemax="100"></div>'
 
             }
         }
